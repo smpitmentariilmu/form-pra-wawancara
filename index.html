@@ -470,12 +470,19 @@
                                     <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Menjaga kebersihan dan kerapian</span>
                                 </label>
                                 <label class="flex items-center p-3.5 border-2 border-slate-100 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
-                                    <input type="checkbox" name="tanggung_jawab" value="Lainnya" onchange="toggleField('tanggung-jawab-lainnya', this.checked)" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
-                                    <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Lainnya</span>
+                                    <input type="checkbox" name="tanggung_jawab" value="Mengatur dan menjaga barang milik sendiri" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
+                                    <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Mengatur dan menjaga barang milik sendiri</span>
                                 </label>
-                                <div id="tanggung-jawab-lainnya" class="conditional-field pl-4 sm:pl-8">
-                                    <input type="text" name="tanggung_jawab_teks" placeholder="Sebutkan bentuk tanggung jawab lainnya..." class="w-full p-3.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px]">
-                                </div>
+
+                                <label class="flex items-center p-3.5 border-2 border-slate-100 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" name="tanggung_jawab" value="Membantu pekerjaan rumah sesuai kemampuan" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
+                                    <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Membantu pekerjaan rumah sesuai kemampuan</span>
+                                </label>
+
+                                <label class="flex items-center p-3.5 border-2 border-slate-100 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" name="tanggung_jawab" value="Mengatur waktu dan kegiatan sehari-hari" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
+                                    <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Mengatur waktu dan kegiatan sehari-hari</span>
+                                </label>
                             </div>
                         </div>
 
@@ -515,7 +522,7 @@
                                 <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Belajar dengan pendampingan orang tua" class="peer sr-only" onchange="toggleField('belajar-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Belajar dengan pendampingan orang tua</div></label>
                                 <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Belajar jika ada tugas/ujian" class="peer sr-only" onchange="toggleField('belajar-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Belajar jika ada tugas/ujian</div></label>
                                 <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Belum memiliki jadwal belajar yang rutin" class="peer sr-only" onchange="toggleField('belajar-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Belum memiliki jadwal belajar yang rutin</div></label>
-                                <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Lainnya" class="peer sr-only" onchange="toggleField('belajar-lainnya', true)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Lainnya</div></label>
+                                <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Jarang belajar di rumah" class="peer sr-only"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Jarang belajar di rumah</div></label>
                             </div>
                             <div id="belajar-lainnya" class="conditional-field mt-2">
                                 <input type="text" name="kebiasaan_belajar_teks" placeholder="Sebutkan kebiasaan belajar lainnya..." class="w-full p-3.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px]">
