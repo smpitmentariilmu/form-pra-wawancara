@@ -40,7 +40,7 @@
         body { background-color: #f8fafc; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         .step-transition { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .conditional-field { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease, margin 0.4s ease, padding 0.4s ease; }
-        .conditional-field.show { max-height: 1500px; opacity: 1; margin-top: 1rem; overflow: visible; }
+        .conditional-field.show { max-height: 15000px; opacity: 1; margin-top: 1rem; overflow: visible; }
         .selectable-card input:checked + div { background-color: #ecfdf5; border-color: #059669; color: #064e3b; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.1); }
         .selectable-card input:checked + div .check-icon { opacity: 1; transform: scale(1); }
         .check-icon { opacity: 0; transform: scale(0.5); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -56,16 +56,14 @@
         .step-nav-item.active::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 100%; height: 3px; background: linear-gradient(to right, #059669, #10b981); border-radius: 4px; }
         .step-nav-item.completed { opacity: 1; cursor: pointer; color: #334155; }
         .step-nav-item.locked { cursor: not-allowed; }
-        button, label, select, input[type="text"], textarea { touch-action: manipulation; }
+        button, label, select, input[type="text"], input[type="number"], textarea { touch-action: manipulation; }
         .bg-accent-pattern { background-image: radial-gradient(#10b981 0.5px, transparent 0.5px), radial-gradient(#10b981 0.5px, #f8fafc 0.5px); background-size: 20px 20px; background-position: 0 0, 10px 10px; opacity: 0.05; }
     </style>
 </head>
 <body class="text-slate-800 antialiased min-h-screen flex flex-col font-sans relative">
 
-    <!-- Top Accent Bar -->
     <div class="h-1.5 w-full bg-gradient-to-r from-primary-600 via-gold-500 to-primary-500 sticky top-0 z-[60]"></div>
 
-    <!-- Header -->
     <header class="bg-white/95 backdrop-blur-md shadow-sm sticky top-1.5 z-50 border-b border-slate-200">
         <div class="max-w-4xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
             <div class="flex items-center gap-3 sm:gap-4">
@@ -136,13 +134,11 @@
                     </div>
                 </div>
 
-                <!-- Input Ayah menggunakan style CSS agar stabil mengetik spasi -->
                 <div>
                     <label class="block font-bold text-slate-800 mb-2 text-[14px] sm:text-[15px]">Nama Lengkap Ayah <span class="text-red-500">*</span></label>
                     <input type="text" id="verify_ayah" placeholder="Masukkan nama lengkap Ayah sesuai data pendaftaran" style="text-transform: uppercase;" class="w-full px-4 py-3.5 sm:py-4 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px] font-medium transition-all">
                 </div>
 
-                <!-- Input Ibu menggunakan style CSS agar stabil mengetik spasi -->
                 <div>
                     <label class="block font-bold text-slate-800 mb-2 text-[14px] sm:text-[15px]">Nama Lengkap Ibu <span class="text-red-500">*</span></label>
                     <input type="text" id="verify_ibu" placeholder="Masukkan nama lengkap Ibu sesuai data pendaftaran" style="text-transform: uppercase;" class="w-full px-4 py-3.5 sm:py-4 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px] font-medium transition-all">
@@ -154,7 +150,6 @@
                     <button type="button" id="btn-verify" onclick="verifyData()" class="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold py-3.5 sm:py-4 px-6 rounded-xl shadow-md transition-all active:scale-[0.98] text-[15px]">
                         <i class="fa-solid fa-shield-check text-lg"></i> Verifikasi Data
                     </button>
-                    <!-- Tombol tidak request checkTime berulang -->
                     <button type="button" id="btn-proceed" onclick="proceedToForm()" class="hidden w-full flex justify-center items-center gap-2 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-bold py-3.5 sm:py-4 px-6 rounded-xl shadow-md transition-all active:scale-[0.98] text-[15px] animate-fade-in">
                         Lanjutkan Mengisi Formulir <i class="fa-solid fa-arrow-right"></i>
                     </button>
@@ -164,6 +159,7 @@
 
         <!-- Form Container -->
         <div id="form-container" class="hidden z-10 relative">
+
             <div class="mb-6 sm:mb-8 bg-white p-4 sm:p-6 rounded-2xl shadow-card border border-slate-100 sticky top-16 sm:relative sm:top-0 z-40">
                 <div class="flex justify-between items-end mb-3">
                     <div>
@@ -220,45 +216,51 @@
                             <h4 class="text-base sm:text-lg font-bold text-slate-800 tracking-tight">Profil Singkat Calon Murid</h4>
                         </div>
 
+                        <!-- MULTI PRESTASI AKADEMIK -->
                         <div>
                             <label class="flex items-start gap-2 font-bold text-slate-800 mb-3 text-[14px] sm:text-[15px] leading-relaxed">
                                 <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
                                 <span>Apakah memiliki prestasi akademik yang pernah diraih? <span class="text-red-500">*</span></span>
                             </label>
                             <div class="grid grid-cols-2 gap-3">
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="prestasi_akademik" value="Ya" class="peer sr-only" onchange="toggleField('akademik-details', true)" required><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Ya</span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div></label>
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="prestasi_akademik" value="Tidak" class="peer sr-only" onchange="toggleField('akademik-details', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Tidak</span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div></label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="prestasi_akademik" value="Ya" class="peer sr-only" onchange="togglePrestasi('akademik', true)" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Ya <span class="text-[11px] font-normal text-slate-500 block">(Maksimal 5)</span></span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="prestasi_akademik" value="Tidak" class="peer sr-only" onchange="togglePrestasi('akademik', false)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Tidak</span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div>
+                                </label>
                             </div>
                             <div id="akademik-details" class="conditional-field bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 space-y-4">
-                                <div>
-                                    <label class="block text-[13px] sm:text-sm font-bold text-slate-700 mb-1.5">Deskripsi Prestasi</label>
-                                    <textarea name="desc_akademik" rows="2" placeholder="Sebutkan nama/tingkat prestasi akademik..." class="w-full p-3.5 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px] resize-none"></textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-[13px] sm:text-sm font-bold text-slate-700 mb-1.5">Upload Prestasi Tertinggi (Opsional)</label>
-                                    <input type="file" id="file_akademik_input" name="file_akademik" class="w-full text-[13px] sm:text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer">
-                                </div>
+                                <div id="akademik-container" class="space-y-4"></div>
+                                <button type="button" id="btn-add-akademik" onclick="addPrestasiItem('akademik')" class="w-full py-3 border-2 border-dashed border-primary-300 text-primary-600 rounded-xl font-bold hover:bg-primary-50 transition-colors shadow-sm flex items-center justify-center gap-2 text-[13px] sm:text-[14px]">
+                                    <i class="fa-solid fa-plus"></i> Tambah Prestasi
+                                </button>
                             </div>
                         </div>
 
+                        <!-- MULTI PRESTASI NONAKADEMIK -->
                         <div>
                             <label class="flex items-start gap-2 font-bold text-slate-800 mb-3 text-[14px] sm:text-[15px] leading-relaxed">
                                 <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
                                 <span>Apakah memiliki prestasi nonakademik yang pernah diraih? <span class="text-red-500">*</span></span>
                             </label>
                             <div class="grid grid-cols-2 gap-3">
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="prestasi_nonakademik" value="Ya" class="peer sr-only" onchange="toggleField('nonakademik-details', true)" required><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Ya</span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div></label>
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="prestasi_nonakademik" value="Tidak" class="peer sr-only" onchange="toggleField('nonakademik-details', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Tidak</span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div></label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="prestasi_nonakademik" value="Ya" class="peer sr-only" onchange="togglePrestasi('nonakademik', true)" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Ya <span class="text-[11px] font-normal text-slate-500 block">(Maksimal 5)</span></span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="prestasi_nonakademik" value="Tidak" class="peer sr-only" onchange="togglePrestasi('nonakademik', false)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between"><span class="font-bold text-slate-700 peer-checked:text-primary-800 text-[14px] sm:text-base">Tidak</span><i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg"></i></div>
+                                </label>
                             </div>
                             <div id="nonakademik-details" class="conditional-field bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 space-y-4">
-                                <div>
-                                    <label class="block text-[13px] sm:text-sm font-bold text-slate-700 mb-1.5">Tuliskan nama prestasi nonakademik</label>
-                                    <textarea name="desc_nonakademik" rows="2" placeholder="Olahraga, Seni, Tahfidz, dll..." class="w-full p-3.5 bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px] resize-none"></textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-[13px] sm:text-sm font-bold text-slate-700 mb-1.5">Upload Prestasi Tertinggi (Opsional)</label>
-                                    <input type="file" id="file_nonakademik_input" name="file_nonakademik" class="w-full text-[13px] sm:text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer">
-                                </div>
+                                <div id="nonakademik-container" class="space-y-4"></div>
+                                <button type="button" id="btn-add-nonakademik" onclick="addPrestasiItem('nonakademik')" class="w-full py-3 border-2 border-dashed border-primary-300 text-primary-600 rounded-xl font-bold hover:bg-primary-50 transition-colors shadow-sm flex items-center justify-center gap-2 text-[13px] sm:text-[14px]">
+                                    <i class="fa-solid fa-plus"></i> Tambah Prestasi
+                                </button>
                             </div>
                         </div>
 
@@ -282,15 +284,40 @@
                                 <span>Hafalan Al-Qur'an saat ini? <span class="text-red-500">*</span></span>
                             </label>
                             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="hafalan" value="Kurang dari 1 juz" class="peer sr-only" onchange="toggleField('hafalan-lainnya', false)" required><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">Kurang dari 1 juz</div></label>
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="hafalan" value="1 juz" class="peer sr-only" onchange="toggleField('hafalan-lainnya', false)" required><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">1 juz</div></label>
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="hafalan" value="2 juz" class="peer sr-only" onchange="toggleField('hafalan-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">2 juz</div></label>
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="hafalan" value="3 juz" class="peer sr-only" onchange="toggleField('hafalan-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">3 juz</div></label>
-                                <label class="selectable-card relative cursor-pointer"><input type="radio" name="hafalan" value="Belum Ada" class="peer sr-only" onchange="toggleField('hafalan-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">Belum Ada</div></label>
-                                <label class="selectable-card relative cursor-pointer col-span-2 sm:col-span-1"><input type="radio" name="hafalan" value="Lainnya" class="peer sr-only" onchange="toggleField('hafalan-lainnya', true)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">Lainnya</div></label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="hafalan" value="Belum Ada" class="peer sr-only" onchange="toggleField('hafalan-lebih-3', false);toggleField('hafalan-lainnya', false)" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">Belum Ada</div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="hafalan" value="Kurang dari 1 juz" class="peer sr-only" onchange="toggleField('hafalan-lebih-3', false);toggleField('hafalan-lainnya', false)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">Kurang dari 1 juz</div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="hafalan" value="1 juz" class="peer sr-only" onchange="toggleField('hafalan-lebih-3', false);toggleField('hafalan-lainnya', false)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">1 juz</div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="hafalan" value="2 juz" class="peer sr-only" onchange="toggleField('hafalan-lebih-3', false);toggleField('hafalan-lainnya', false)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">2 juz</div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="hafalan" value="3 juz" class="peer sr-only" onchange="toggleField('hafalan-lebih-3', false);toggleField('hafalan-lainnya', false)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">3 juz</div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="hafalan" value="Lebih dari 3 juz" class="peer sr-only" onchange="toggleField('hafalan-lebih-3', true);toggleField('hafalan-lainnya', false)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">Lebih dari 3 juz</div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer col-span-2 sm:col-span-1">
+                                    <input type="radio" name="hafalan" value="Lainnya" class="peer sr-only" onchange="toggleField('hafalan-lebih-3', false);toggleField('hafalan-lainnya', true)">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[13px] sm:text-sm h-full flex items-center justify-center">Lainnya</div>
+                                </label>
+                            </div>
+                            <div id="hafalan-lebih-3" class="conditional-field mt-3">
+                                <input type="number" name="hafalan_jumlah" min="4" step="1" placeholder="Masukkan jumlah hafalan (contoh: 5)" class="w-full p-3.5 sm:p-4 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px]">
                             </div>
                             <div id="hafalan-lainnya" class="conditional-field mt-3">
-                                <input type="text" name="hafalan_teks" placeholder="Sebutkan (contoh: Juz 30 dan beberapa surah)" class="w-full p-3.5 sm:p-4 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px]">
+                                <input type="text" name="hafalan_teks" placeholder="Sebutkan hafalan lainnya (contoh: Juz 30 dan beberapa surah)" class="w-full p-3.5 sm:p-4 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px]">
                             </div>
                         </div>
                     </div>
@@ -300,6 +327,7 @@
                             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-50 to-primary-100 text-primary-700 flex items-center justify-center border border-primary-100 shadow-sm flex-shrink-0"><i class="fa-solid fa-circle-info text-lg"></i></div>
                             <h4 class="text-base sm:text-lg font-bold text-slate-800 tracking-tight">Informasi Pendaftaran</h4>
                         </div>
+                        
                         <div id="group_sumber_informasi">
                             <label class="flex items-start gap-2 font-bold text-slate-800 mb-3 text-[14px] sm:text-[15px] leading-relaxed">
                                 <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
@@ -473,16 +501,21 @@
                                     <input type="checkbox" name="tanggung_jawab" value="Mengatur dan menjaga barang milik sendiri" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
                                     <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Mengatur dan menjaga barang milik sendiri</span>
                                 </label>
-
                                 <label class="flex items-center p-3.5 border-2 border-slate-100 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
                                     <input type="checkbox" name="tanggung_jawab" value="Membantu pekerjaan rumah sesuai kemampuan" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
                                     <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Membantu pekerjaan rumah sesuai kemampuan</span>
                                 </label>
-
                                 <label class="flex items-center p-3.5 border-2 border-slate-100 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
                                     <input type="checkbox" name="tanggung_jawab" value="Mengatur waktu dan kegiatan sehari-hari" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
                                     <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Mengatur waktu dan kegiatan sehari-hari</span>
                                 </label>
+                                <label class="flex items-center p-3.5 border-2 border-slate-100 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" name="tanggung_jawab" value="Lainnya" onchange="toggleField('tanggung-jawab-lainnya', this.checked)" class="w-5 h-5 text-primary-600 rounded flex-shrink-0">
+                                    <span class="ml-3 font-semibold text-slate-700 text-[14px] sm:text-[15px] leading-snug">Lainnya</span>
+                                </label>
+                                <div id="tanggung-jawab-lainnya" class="conditional-field pl-4 sm:pl-8">
+                                    <input type="text" name="tanggung_jawab_teks" placeholder="Sebutkan bentuk tanggung jawab lainnya..." class="w-full p-3.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px]">
+                                </div>
                             </div>
                         </div>
 
@@ -523,6 +556,7 @@
                                 <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Belajar jika ada tugas/ujian" class="peer sr-only" onchange="toggleField('belajar-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Belajar jika ada tugas/ujian</div></label>
                                 <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Belum memiliki jadwal belajar yang rutin" class="peer sr-only" onchange="toggleField('belajar-lainnya', false)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Belum memiliki jadwal belajar yang rutin</div></label>
                                 <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Jarang belajar di rumah" class="peer sr-only"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Jarang belajar di rumah</div></label>
+                                <label class="selectable-card block relative cursor-pointer"><input type="radio" name="kebiasaan_belajar" value="Lainnya" class="peer sr-only" onchange="toggleField('belajar-lainnya', true)"><div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl font-semibold text-slate-700 text-[14px] sm:text-[15px] peer-checked:text-primary-800 leading-snug">Lainnya</div></label>
                             </div>
                             <div id="belajar-lainnya" class="conditional-field mt-2">
                                 <input type="text" name="kebiasaan_belajar_teks" placeholder="Sebutkan kebiasaan belajar lainnya..." class="w-full p-3.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none text-[14px] sm:text-[15px]">
@@ -730,10 +764,10 @@
                             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-50 to-primary-100 text-primary-700 flex items-center justify-center border border-primary-100 shadow-sm flex-shrink-0"><i class="fa-solid fa-clock-rotate-left text-lg"></i></div>
                             <h4 class="text-base sm:text-lg font-bold text-slate-800 tracking-tight">Riwayat Pembayaran</h4>
                         </div>
-                        <!-- <div class="bg-blue-50/70 text-blue-800 p-4 rounded-xl text-[13px] sm:text-sm font-medium mb-6 flex items-start gap-3 border border-blue-100/50">
+                        <div class="bg-blue-50/70 text-blue-800 p-4 rounded-xl text-[13px] sm:text-sm font-medium mb-6 flex items-start gap-3 border border-blue-100/50">
                             <i class="fa-solid fa-circle-info mt-0.5 text-blue-500"></i>
                             <p class="leading-relaxed">Catatan: Khusus bagi keluarga yang telah memiliki putra/putri di unit sekolah/yayasan yang sama.</p>
-                        </div> -->
+                        </div>
                         
                         <div>
                             <label class="flex items-start gap-2 font-bold text-slate-800 mb-3 text-[14px] sm:text-[15px] leading-relaxed">
@@ -802,6 +836,121 @@
                                 <label class="flex-1 selectable-card relative cursor-pointer"><input type="radio" name="ketentuan_bayar" value="Tidak" class="peer sr-only"><div class="p-3.5 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[14px]">Tidak</div></label>
                             </div>
                         </div>
+
+                        <!-- Kesiapan Pembayaran SPP -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100">
+                            <p class="flex items-start gap-2 font-bold text-slate-800 mb-4 text-[14px] sm:text-[15px] leading-relaxed">
+                                <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
+                                <span>Apakah Bapak/Ibu siap memenuhi pembayaran SPP bulanan sesuai dengan ketentuan dan tanggal pembayaran yang telah ditetapkan sekolah? <span class="text-red-500">*</span></span>
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="kesiapan_spp" value="Sangat siap" class="peer sr-only" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Sangat siap</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="kesiapan_spp" value="Siap" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Siap</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="kesiapan_spp" value="Siap dengan pengaturan tertentu" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Siap dengan pengaturan tertentu</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="kesiapan_spp" value="Belum pasti" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Belum pasti</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <!-- Kesiapan Biaya Kegiatan -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100">
+                            <p class="flex items-start gap-2 font-bold text-slate-800 mb-4 text-[14px] sm:text-[15px] leading-relaxed">
+                                <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
+                                <span>Jika terdapat biaya kegiatan pendidikan yang telah diinformasikan dan disepakati oleh sekolah, bagaimana kesiapan Bapak/Ibu untuk memenuhinya? <span class="text-red-500">*</span></span>
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="kesiapan_biaya_kegiatan" value="Siap sesuai jadwal" class="peer sr-only" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Siap sesuai jadwal</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="kesiapan_biaya_kegiatan" value="Siap dengan perencanaan" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Siap dengan perencanaan</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+
+                                <label class="selectable-card relative cursor-pointer sm:col-span-2">
+                                    <input type="radio" name="kesiapan_biaya_kegiatan" value="Perlu mempertimbangkan kembali sesuai nominal" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Perlu mempertimbangkan kembali sesuai nominal</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <!-- Alokasi Biaya Pendidikan -->
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100">
+                            <p class="flex items-start gap-2 font-bold text-slate-800 mb-4 text-[14px] sm:text-[15px] leading-relaxed">
+                                <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
+                                <span>Apakah keluarga sudah memiliki alokasi khusus untuk biaya pendidikan putra/putri? <span class="text-red-500">*</span></span>
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="alokasi_biaya_pendidikan" value="Sudah rutin" class="peer sr-only" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3 h-full">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Sudah rutin</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="alokasi_biaya_pendidikan" value="Ada tetapi belum khusus" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3 h-full">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Ada tetapi belum khusus</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="alokasi_biaya_pendidikan" value="Belum ada" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3 h-full">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Belum ada</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+
+
                         <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <p class="flex items-start gap-2 font-bold text-slate-800 text-[14px] sm:text-[15px] sm:w-2/3 leading-relaxed">
                                 <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
@@ -927,7 +1076,7 @@
 
         let dbStudents = [];
         let verifiedStudent = null; 
-        let verifiedStudentData = null; // Menyimpan jawaban form yang sudah diisi sebelumnya
+        let verifiedStudentData = null; 
 
         function normalizeText(text) {
             if (!text) return "";
@@ -992,9 +1141,6 @@
             }
         });
 
-        // ==========================================
-        // INIT DATA: AMBIL DAFTAR MURID & JADWAL 
-        // ==========================================
         async function initForm() {
             const btn = document.getElementById('btn-mulai');
             const originalText = btn.innerHTML;
@@ -1007,7 +1153,6 @@
                     body: JSON.stringify({ action: 'getInitData' })
                 }).then(r => r.json());
 
-                // Update teks jadwal jika data ada
                 if (res.jadwal && res.jadwal.mulai && res.jadwal.selesai) {
                     document.getElementById('jadwal-display').innerText = `${res.jadwal.mulai} – ${res.jadwal.selesai}`;
                 } else {
@@ -1030,9 +1175,6 @@
             }
         }
 
-        // ==========================================
-        // VERIFY: CEK AYAH / IBU DI SERVER
-        // ==========================================
         async function verifyData() {
             const inputNama = hiddenInput.value;
             const inputAyah = document.getElementById('verify_ayah').value.toUpperCase();
@@ -1065,7 +1207,7 @@
 
                 if (res.status === 'success') {
                     verifiedStudent = res.student;
-                    verifiedStudentData = res.existingData || null; // Simpan data lama jika ada
+                    verifiedStudentData = res.existingData || null; 
                     
                     let extraMsg = verifiedStudentData 
                         ? "<br><span class='text-blue-600 mt-1 block'><i class='fa-solid fa-clock-rotate-left mr-1'></i> Data formulir Anda sebelumnya telah ditemukan dan akan dimuat ulang.</span>" 
@@ -1094,9 +1236,6 @@
             }
         }
 
-        // ==========================================
-        // PROCEED: BUKA FORM & PREFILL DATA LAMA
-        // ==========================================
         function proceedToForm() {
             document.getElementById('final_nama_lengkap').value = verifiedStudent.nama;
             document.getElementById('final_asal_sekolah').value = verifiedStudent.sekolah;
@@ -1107,10 +1246,8 @@
             document.getElementById('verification-section').classList.add('hidden');
             document.getElementById('form-container').classList.remove('hidden');
             
-            // Reset form untuk berjaga-jaga
             document.getElementById('spmb-form').reset();
 
-            // Eksekusi pengisian data lama
             if (verifiedStudentData) {
                 prefillForm(verifiedStudentData);
             }
@@ -1120,10 +1257,19 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ==========================================
-        // FUNGSI PREFILL (LOAD DATA LAMA)
-        // ==========================================
         function prefillForm(data) {
+            // EKSTRAK DATA PRESTASI SEBELUM LOOP UTAMA AGAR TIDAK DOUBLE PROCESSING
+            const akd = data.prestasi_akademik;
+            const nakd = data.prestasi_nonakademik;
+            
+            delete data.prestasi_akademik;
+            delete data.desc_akademik;
+            delete data.url_akademik;
+            delete data.prestasi_nonakademik;
+            delete data.desc_nonakademik;
+            delete data.url_nonakademik;
+
+            // PREFILL DATA STANDAR
             for (const key in data) {
                 const val = data[key];
                 if (!val) continue;
@@ -1138,12 +1284,10 @@
                     els.forEach(rb => {
                         if (rb.value === val) {
                             rb.checked = true;
-                            // Trigger event onchange manual agar conditional field ('Lainnya') otomatis terbuka
                             rb.dispatchEvent(new Event('change'));
                         }
                     });
                 } else if (elType === 'checkbox') {
-                    // Ceklis bisa lebih dari satu nilai, dipisahkan dengan koma
                     const valArray = val.split(', ');
                     els.forEach(cb => {
                         if (valArray.includes(cb.value)) {
@@ -1151,7 +1295,7 @@
                             cb.dispatchEvent(new Event('change'));
                         }
                     });
-                } else if (tagName === 'SELECT' || elType === 'text' || tagName === 'TEXTAREA') {
+                } else if (tagName === 'SELECT' || elType === 'text' || tagName === 'TEXTAREA' || elType === 'number') {
                     if (elType !== 'file') {
                         els[0].value = val;
                         els[0].dispatchEvent(new Event('change'));
@@ -1159,40 +1303,170 @@
                 }
             }
 
-            // Tampilkan Link File Lama
-            if (data.url_akademik) showExistingFileLink('file_akademik_input', data.url_akademik);
-            if (data.url_nonakademik) showExistingFileLink('file_nonakademik_input', data.url_nonakademik);
-        }
+            // PREFILL PRESTASI AKADEMIK
+            if (akd) {
+                if (akd.startsWith('[')) {
+                    document.querySelector('input[name="prestasi_akademik"][value="Ya"]').checked = true;
+                    togglePrestasi('akademik', true);
+                    document.getElementById('akademik-container').innerHTML = ''; 
+                    JSON.parse(akd).forEach(p => addPrestasiItem('akademik', p));
+                } else if (akd === 'Ya') {
+                    document.querySelector('input[name="prestasi_akademik"][value="Ya"]').checked = true;
+                    togglePrestasi('akademik', true);
+                    document.getElementById('akademik-container').innerHTML = ''; 
+                    addPrestasiItem('akademik', {
+                        nama: data.desc_akademik || '', 
+                        pencapaian: '', tingkat: '', tahun: '',
+                        keterangan: '',
+                        bukti: data.url_akademik || ''
+                    });
+                } else {
+                    document.querySelector('input[name="prestasi_akademik"][value="Tidak"]').checked = true;
+                    togglePrestasi('akademik', false);
+                }
+            }
 
-        function showExistingFileLink(inputId, url) {
-            const inputEl = document.getElementById(inputId);
-            if (inputEl) {
-               let existingLink = document.getElementById(inputId + '_link');
-               if (!existingLink) {
-                   existingLink = document.createElement('div');
-                   existingLink.id = inputId + '_link';
-                   existingLink.className = 'mt-2 text-[13px] text-primary-600 font-semibold';
-                   inputEl.parentNode.appendChild(existingLink);
-               }
-               existingLink.innerHTML = `<i class="fa-solid fa-paperclip"></i> <a href="${url}" target="_blank" class="underline hover:text-primary-800 transition-colors">Lihat file tersimpan</a> <span class="text-slate-500 font-normal ml-1">(Pilih file baru untuk mengganti)</span>`;
+            // PREFILL PRESTASI NONAKADEMIK
+            if (nakd) {
+                if (nakd.startsWith('[')) {
+                    document.querySelector('input[name="prestasi_nonakademik"][value="Ya"]').checked = true;
+                    togglePrestasi('nonakademik', true);
+                    document.getElementById('nonakademik-container').innerHTML = ''; 
+                    JSON.parse(nakd).forEach(p => addPrestasiItem('nonakademik', p));
+                } else if (nakd === 'Ya') {
+                    document.querySelector('input[name="prestasi_nonakademik"][value="Ya"]').checked = true;
+                    togglePrestasi('nonakademik', true);
+                    document.getElementById('nonakademik-container').innerHTML = ''; 
+                    addPrestasiItem('nonakademik', {
+                        nama: data.desc_nonakademik || '', 
+                        pencapaian: '', tingkat: '', tahun: '',
+                        keterangan: '',
+                        bukti: data.url_nonakademik || ''
+                    });
+                } else {
+                    document.querySelector('input[name="prestasi_nonakademik"][value="Tidak"]').checked = true;
+                    togglePrestasi('nonakademik', false);
+                }
             }
         }
 
-        // FUNGSI FORM (UI LOGIC)
+        // ==========================================
+        // MANAJEMEN MULTI-PRESTASI
+        // ==========================================
+        function addPrestasiItem(type, data = null) {
+            const container = document.getElementById(`${type}-container`);
+            const btnAdd = document.getElementById(`btn-add-${type}`);
+            
+            // Batasan logis, jangan tambah jika sudah >= 5
+            if (container.children.length >= 7) {
+                showToast("Maksimal 5 prestasi.");
+                return;
+            }
+
+            const index = container.children.length + 1;
+            
+            const div = document.createElement('div');
+            div.className = 'prestasi-item p-4 sm:p-5 border border-slate-200 rounded-xl bg-white relative shadow-sm mt-3 first:mt-0';
+            
+            div.innerHTML = `
+                <div class="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+                    <h5 class="font-bold text-slate-700 text-[14px]">Prestasi <span class="prestasi-num">${index}</span></h5>
+                    ${index > 1 ? `<button type="button" class="text-red-500 hover:text-red-700 text-xs font-bold transition-colors" onclick="removePrestasiItem(this, '${type}')"><i class="fa-solid fa-trash mr-1"></i>Hapus</button>` : ''}
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="sm:col-span-2">
+                        <label class="block text-[12px] font-bold text-slate-600 mb-1.5">Nama Prestasi/Lomba <span class="text-red-500">*</span></label>
+                        <input type="text" class="inp-nama w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-[13px] sm:text-sm focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none" required value="${data?.nama || ''}">
+                    </div>
+                    <div>
+                        <label class="block text-[12px] font-bold text-slate-600 mb-1.5">Pencapaian (Contoh: Juara 1) <span class="text-red-500">*</span></label>
+                        <input type="text" class="inp-pencapaian w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-[13px] sm:text-sm focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none" required value="${data?.pencapaian || ''}">
+                    </div>
+                    <div>
+                        <label class="block text-[12px] font-bold text-slate-600 mb-1.5">Tahun <span class="text-red-500">*</span></label>
+                        <input type="number" class="inp-tahun w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-[13px] sm:text-sm focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none" required value="${data?.tahun || ''}">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[12px] font-bold text-slate-600 mb-1.5">Tingkat Prestasi <span class="text-red-500">*</span></label>
+                        <select class="inp-tingkat w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-[13px] sm:text-sm focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none font-semibold text-slate-700" required>
+                            <option value="" disabled ${!data?.tingkat ? 'selected' : ''}>Pilih Tingkat...</option>
+                            <option value="Sekolah" ${data?.tingkat === 'Sekolah' ? 'selected' : ''}>Sekolah</option>
+                            <option value="Kecamatan" ${data?.tingkat === 'Kecamatan' ? 'selected' : ''}>Kecamatan</option>
+                            <option value="Kabupaten/Kota" ${data?.tingkat === 'Kabupaten/Kota' ? 'selected' : ''}>Kabupaten/Kota</option>
+                            <option value="Provinsi" ${data?.tingkat === 'Provinsi' ? 'selected' : ''}>Provinsi</option>
+                            <option value="Nasional" ${data?.tingkat === 'Nasional' ? 'selected' : ''}>Nasional</option>
+                            <option value="Internasional" ${data?.tingkat === 'Internasional' ? 'selected' : ''}>Internasional</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-[12px] font-bold text-slate-600 mb-1.5">Keterangan Tambahan (Opsional)</label>
+                        <textarea rows="2" class="inp-ket w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-[13px] sm:text-sm focus:bg-white focus:ring-2 focus:ring-primary-500 outline-none resize-none">${data?.keterangan || ''}</textarea>
+                    </div>
+                    <div class="sm:col-span-2 pt-2 border-t border-slate-100">
+                        <label class="block text-[12px] font-bold text-slate-600 mb-1.5">Upload Bukti Prestasi (Opsional)</label>
+                        <input type="file" accept="image/*,application/pdf" class="inp-file w-full text-[12px] sm:text-[13px] text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 cursor-pointer transition-colors">
+                        <input type="hidden" class="inp-existing-bukti" value="${data?.bukti || ''}">
+                        ${data?.bukti ? `<div class="mt-2 text-[12px] text-primary-600 font-semibold"><i class="fa-solid fa-paperclip mr-1"></i><a href="${data.bukti}" target="_blank" class="underline hover:text-primary-800">Lihat file tersimpan</a><span class="text-slate-400 font-normal ml-1">(Pilih file baru untuk mengganti)</span></div>` : ''}
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+
+            // Sembunyikan tombol jika >= 5
+            if (container.children.length >= 5) {
+                if(btnAdd) btnAdd.style.display = 'none';
+            }
+        }
+
+        function removePrestasiItem(btn, type) {
+            const container = document.getElementById(`${type}-container`);
+            btn.closest('.prestasi-item').remove();
+            
+            const items = container.querySelectorAll('.prestasi-item');
+            items.forEach((item, index) => {
+                item.querySelector('.prestasi-num').textContent = index + 1;
+            });
+
+            // Tampilkan tombol kembali jika < 5
+            const btnAdd = document.getElementById(`btn-add-${type}`);
+            if (container.children.length < 5) {
+                if(btnAdd) btnAdd.style.display = 'flex';
+            }
+        }
+
+        function togglePrestasi(type, isYes) {
+            toggleField(`${type}-details`, isYes);
+            const container = document.getElementById(`${type}-container`);
+            const btnAdd = document.getElementById(`btn-add-${type}`);
+            
+            if (isYes && container.children.length === 0) {
+                addPrestasiItem(type); 
+            } else if (!isYes) {
+                container.innerHTML = '';
+                if(btnAdd) btnAdd.style.display = 'flex'; // Reset tombol
+            }
+        }
+
+
         function toggleField(targetId, show) {
             const el = document.getElementById(targetId);
             if(!el) return;
             if (show) {
                 el.classList.add('show');
-                const inputs = el.querySelectorAll('input[type="text"], textarea');
-                inputs.forEach(i => i.setAttribute('required', 'true'));
+                const inputs = el.querySelectorAll('input[type="text"], input[type="number"], select, textarea');
+                inputs.forEach(i => {
+                    if(i.closest('.conditional-field') === el || i.closest('.conditional-field.show')) {
+                        i.setAttribute('required', 'true');
+                    }
+                });
             } else {
                 el.classList.remove('show');
-                const inputs = el.querySelectorAll('input, textarea');
+                const inputs = el.querySelectorAll('input, select, textarea');
                 inputs.forEach(i => {
                     i.removeAttribute('required');
-                    if(i.type === 'text' || i.tagName === 'TEXTAREA') i.value = '';
+                    if(i.type === 'text' || i.type === 'number' || i.tagName === 'TEXTAREA') i.value = '';
                     if(i.type === 'file') i.value = '';
+                    if(i.tagName === 'SELECT') i.selectedIndex = 0;
                 });
             }
         }
@@ -1226,10 +1500,7 @@
             const toast = document.getElementById('toast');
             document.getElementById('toast-message').textContent = msg;
             toast.classList.remove('translate-y-[-150%]', 'opacity-0');
-            
-            setTimeout(() => {
-                toast.classList.add('translate-y-[-150%]', 'opacity-0');
-            }, 3000);
+            setTimeout(() => { toast.classList.add('translate-y-[-150%]', 'opacity-0'); }, 3000);
         }
 
         function validateStep(step) {
@@ -1292,6 +1563,7 @@
 
             radioGroupsToValidate.forEach(groupName => {
                 const radios = stepEl.querySelectorAll(`input[name="${groupName}"]`);
+                if(radios.length === 0) return;
                 const isChecked = Array.from(radios).some(radio => radio.checked);
                 
                 if (!isChecked) {
@@ -1442,19 +1714,77 @@
 
             let html = '';
 
-            const hfl = getVal('hafalan') === 'Lainnya' ? document.querySelector('input[name="hafalan_teks"]').value : getVal('hafalan');
+            // Formatting Review agar manis dibaca
             
-            let sumberInfoStr = getVal('sumber_informasi');
-            if(sumberInfoStr === 'Rekomendasi dari pihak lain') {
-                 sumberInfoStr += ` (${document.querySelector('input[name="sumber_informasi_rekomendasi"]').value})`;
-            } else if (sumberInfoStr === 'Lainnya') {
-                 sumberInfoStr += ` (${document.querySelector('input[name="sumber_informasi_lainnya"]').value})`;
+            // Format Prestasi Akademik
+            let akdStr = getVal('prestasi_akademik');
+            if (akdStr === 'Ya') {
+                const nodes = document.querySelectorAll('#akademik-container .prestasi-item');
+                let items = [];
+                nodes.forEach(n => {
+                    let nm = n.querySelector('.inp-nama').value;
+                    let pc = n.querySelector('.inp-pencapaian').value;
+                    let tk = n.querySelector('.inp-tingkat').value;
+                    let th = n.querySelector('.inp-tahun').value;
+                    if(nm) items.push(`${nm} (${pc}, ${tk}, ${th})`);
+                });
+                if (items.length > 0) {
+                    akdStr = '• ' + items.join('<br> • ');
+                }
             }
+
+            // Format Prestasi Nonakademik
+            let nakdStr = getVal('prestasi_nonakademik');
+            if (nakdStr === 'Ya') {
+                const nodes = document.querySelectorAll('#nonakademik-container .prestasi-item');
+                let items = [];
+                nodes.forEach(n => {
+                    let nm = n.querySelector('.inp-nama').value;
+                    let pc = n.querySelector('.inp-pencapaian').value;
+                    let tk = n.querySelector('.inp-tingkat').value;
+                    let th = n.querySelector('.inp-tahun').value;
+                    if(nm) items.push(`${nm} (${pc}, ${tk}, ${th})`);
+                });
+                if (items.length > 0) {
+                    nakdStr = '• ' + items.join('<br> • ');
+                }
+            }
+
+
+            let hfl = getVal('hafalan');
+            if(hfl === 'Lainnya') hfl += ` — ${document.querySelector('input[name="hafalan_teks"]').value}`;
+            if(hfl === 'Lebih dari 3 juz') hfl += ` — ${document.querySelector('input[name="hafalan_jumlah"]').value} juz`;
+
+            let sumberInfoStr = getVal('sumber_informasi');
+            if(sumberInfoStr === 'Rekomendasi dari pihak lain') sumberInfoStr += ` — ${document.querySelector('input[name="sumber_informasi_rekomendasi"]').value}`;
+            else if (sumberInfoStr === 'Lainnya') sumberInfoStr += ` — ${document.querySelector('input[name="sumber_informasi_lainnya"]').value}`;
+
+            let tjStr = getMulti('tanggung_jawab');
+            if(tjStr.includes('Lainnya')) tjStr = tjStr.replace('Lainnya', `Lainnya — ${document.querySelector('input[name="tanggung_jawab_teks"]').value}`);
+
+            let pdpStr = getVal('pendamping_utama');
+            if(pdpStr === 'Lainnya') pdpStr += ` — ${document.querySelector('input[name="pendamping_utama_teks"]').value}`;
+
+            let kbStr = getVal('kebiasaan_belajar');
+            if(kbStr === 'Lainnya') kbStr += ` — ${document.querySelector('input[name="kebiasaan_belajar_teks"]').value}`;
+
+            let pkjAyahStr = getVal('pekerjaan_ayah');
+            if(pkjAyahStr === 'Lainnya') pkjAyahStr += ` — ${document.querySelector('input[name="pekerjaan_ayah_teks"]').value}`;
+
+            let pkjIbuStr = getVal('pekerjaan_ibu');
+            if(pkjIbuStr === 'Lainnya') pkjIbuStr += ` — ${document.querySelector('input[name="pekerjaan_ibu_teks"]').value}`;
+
+            let stStr = getVal('stabilitas_penghasilan');
+            if(stStr === 'Lainnya') stStr += ` — ${document.querySelector('input[name="stabilitas_teks"]').value}`;
+
+            let ppbStr = getVal('perlu_penjelasan_biaya');
+            if(ppbStr === 'Ya') ppbStr += ` — ${document.querySelector('textarea[name="penjelasan_biaya_teks"]').value}`;
 
             html += createSection('Identitas & Profil Anak', 1, 
                 row('Nama Calon Murid', verifiedStudent.nama) +
                 row('Asal Sekolah', verifiedStudent.sekolah) +
-                row('Prestasi Akademik', getVal('prestasi_akademik') === 'Ya' ? getVal('desc_akademik') : 'Tidak') +
+                row('Prestasi Akademik', akdStr) +
+                row('Prestasi Nonakademik', nakdStr) +
                 row('Minat & Bakat', getVal('minat_bakat')) +
                 row('Hafalan Qur\'an', hfl) +
                 row('Sumber Informasi', sumberInfoStr) +
@@ -1463,12 +1793,11 @@
                 row('Dukung Kedisiplinan', getVal('dukung_disiplin'))
             );
 
-            const pb = getVal('pendamping_utama') === 'Lainnya' ? document.querySelector('input[name="pendamping_utama_teks"]').value : getVal('pendamping_utama');
             html += createSection('Pendidikan di Rumah', 2, 
                 row('Ibadah', getVal('kebiasaan_ibadah')) +
                 row('Gawai', getVal('penggunaan_gawai')) +
-                row('Tanggung Jawab', getMulti('tanggung_jawab')) +
-                row('Pendamping Utama', pb)
+                row('Tanggung Jawab', tjStr) +
+                row('Pendamping Utama', pdpStr)
             );
 
             const countKm = document.querySelectorAll('input[name="kemitraan"]:checked').length;
@@ -1476,9 +1805,8 @@
                 row('Komitmen Terpilih', `${countKm} dari 6 komitmen`)
             );
 
-            const pkjAyah = getVal('pekerjaan_ayah') === 'Lainnya' ? document.querySelector('input[name="pekerjaan_ayah_teks"]').value : getVal('pekerjaan_ayah');
             html += createSection('Profil Keluarga & Riwayat', 4, 
-                row('Pekerjaan Ayah', pkjAyah) +
+                row('Pekerjaan Ayah', pkjAyahStr) +
                 row('Penghasilan', getVal('penghasilan')) +
                 row('Kewajiban Cicilan', getVal('kewajiban_cicilan')) +
                 row('Tanggungan Anak', getVal('jml_tanggungan')) +
@@ -1488,7 +1816,8 @@
             html += createSection('Administrasi & Pembiayaan', 5, 
                 row('Tahu Komponen Biaya', getVal('komponen_biaya')) +
                 row('Paham Mekanisme', getVal('mekanisme_daftar')) +
-                row('Bersedia Mengikuti Ketentuan', getVal('ketentuan_bayar'))
+                row('Bersedia Mengikuti Ketentuan', getVal('ketentuan_bayar')) +
+                row('Perlu Penjelasan Biaya', ppbStr)
             );
 
             container.innerHTML = html;
@@ -1497,7 +1826,6 @@
         // ==========================================
         // SUBMIT FORM KE GOOGLE APPS SCRIPT
         // ==========================================
-        
         function getBase64(file) {
            return new Promise((resolve, reject) => {
              const reader = new FileReader();
@@ -1510,7 +1838,7 @@
         async function submitForm() {
             if (!validateStep(6)) return;
             
-            if (!APPS_SCRIPT_URL) {
+            if(!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'MASUKKAN_URL_WEB_APP_DI_SINI'){
                 showToast("URL Web App belum dikonfigurasi di HTML.");
                 return;
             }
@@ -1547,23 +1875,58 @@
                 if(payload.tanggung_jawab) payload.tanggung_jawab = payload.tanggung_jawab.join(', ');
                 if(payload.kemitraan) payload.kemitraan = payload.kemitraan.join(', ');
 
-                const fileAkademik = document.getElementById('file_akademik_input').files[0];
-                if(fileAkademik) {
-                    payload.file_akademik = {
-                        name: fileAkademik.name,
-                        mimeType: fileAkademik.type,
-                        base64: await getBase64(fileAkademik)
+                // MULTI PRESTASI AKADEMIK
+                const akademikItems = [];
+                const akdNodes = document.querySelectorAll('#akademik-container .prestasi-item');
+                for (let i = 0; i < akdNodes.length; i++) {
+                    const node = akdNodes[i];
+                    const item = {
+                        nama: node.querySelector('.inp-nama').value,
+                        pencapaian: node.querySelector('.inp-pencapaian').value,
+                        tingkat: node.querySelector('.inp-tingkat').value,
+                        tahun: node.querySelector('.inp-tahun').value,
+                        keterangan: node.querySelector('.inp-ket').value,
+                        bukti: node.querySelector('.inp-existing-bukti').value
                     };
+                    const fileInput = node.querySelector('.inp-file');
+                    if (fileInput && fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        item.file = {
+                            name: file.name,
+                            mimeType: file.type,
+                            base64: await getBase64(file)
+                        };
+                    }
+                    akademikItems.push(item);
                 }
+                payload.akademik_list = akademikItems;
 
-                const fileNonakademik = document.getElementById('file_nonakademik_input').files[0];
-                if(fileNonakademik) {
-                    payload.file_nonakademik = {
-                        name: fileNonakademik.name,
-                        mimeType: fileNonakademik.type,
-                        base64: await getBase64(fileNonakademik)
+                // MULTI PRESTASI NONAKADEMIK
+                const nonakademikItems = [];
+                const nonakdNodes = document.querySelectorAll('#nonakademik-container .prestasi-item');
+                for (let i = 0; i < nonakdNodes.length; i++) {
+                    const node = nonakdNodes[i];
+                    const item = {
+                        nama: node.querySelector('.inp-nama').value,
+                        pencapaian: node.querySelector('.inp-pencapaian').value,
+                        tingkat: node.querySelector('.inp-tingkat').value,
+                        tahun: node.querySelector('.inp-tahun').value,
+                        keterangan: node.querySelector('.inp-ket').value,
+                        bukti: node.querySelector('.inp-existing-bukti').value
                     };
+                    const fileInput = node.querySelector('.inp-file');
+                    if (fileInput && fileInput.files.length > 0) {
+                        const file = fileInput.files[0];
+                        item.file = {
+                            name: file.name,
+                            mimeType: file.type,
+                            base64: await getBase64(file)
+                        };
+                    }
+                    nonakademikItems.push(item);
                 }
+                payload.nonakademik_list = nonakademikItems;
+
 
                 const response = await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
