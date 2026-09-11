@@ -796,14 +796,39 @@
                     </div>
 
                     <div class="space-y-4 sm:space-y-5">
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <p class="flex items-start gap-2 font-bold text-slate-800 text-[14px] sm:text-[15px] sm:w-2/3 leading-relaxed">
+                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100">
+                            <p class="flex items-start gap-2 font-bold text-slate-800 mb-4 text-[14px] sm:text-[15px] leading-relaxed">
                                 <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
-                                <span>Sudah mengetahui komponen biaya pendidikan SMPIT Mentari Ilmu? <span class="text-red-500">*</span></span>
+                                <span>Setelah memperoleh informasi mengenai biaya pendidikan, apakah Bapak/Ibu telah memahami seluruh komponen biaya sekolah? <span class="text-red-500">*</span></span>
                             </p>
-                            <div class="flex gap-2.5 sm:w-1/3">
-                                <label class="flex-1 selectable-card relative cursor-pointer"><input type="radio" name="komponen_biaya" value="Ya" class="peer sr-only" required><div class="p-3.5 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[14px]">Ya</div></label>
-                                <label class="flex-1 selectable-card relative cursor-pointer"><input type="radio" name="komponen_biaya" value="Tidak" class="peer sr-only"><div class="p-3.5 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[14px]">Tidak</div></label>
+                            <div class="grid grid-cols-1 gap-3">
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="komponen_biaya" value="Ya, sudah memahami seluruhnya" class="peer sr-only" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">
+                                            Ya, sudah memahami seluruhnya
+                                        </span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="komponen_biaya" value="Sebagian besar sudah memahami" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">
+                                            Sebagian besar sudah memahami
+                                        </span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="komponen_biaya" value="Masih membutuhkan penjelasan lebih lanjut" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">
+                                            Masih membutuhkan penjelasan lebih lanjut
+                                        </span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                         <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -816,6 +841,7 @@
                                 <label class="flex-1 selectable-card relative cursor-pointer"><input type="radio" name="mekanisme_daftar" value="Tidak" class="peer sr-only"><div class="p-3.5 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[14px]">Tidak</div></label>
                             </div>
                         </div>
+
                         <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <p class="flex items-start gap-2 font-bold text-slate-800 text-[14px] sm:text-[15px] sm:w-2/3 leading-relaxed">
                                 <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
@@ -826,16 +852,44 @@
                                 <label class="flex-1 selectable-card relative cursor-pointer"><input type="radio" name="batas_waktu" value="Tidak" class="peer sr-only"><div class="p-3.5 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[14px]">Tidak</div></label>
                             </div>
                         </div>
-                        <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <p class="flex items-start gap-2 font-bold text-slate-800 text-[14px] sm:text-[15px] sm:w-2/3 leading-relaxed">
+                        <!-- Item yayasan -->
+                         <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100">
+                            <p class="flex items-start gap-2 font-bold text-slate-800 mb-4 text-[14px] sm:text-[15px] leading-relaxed">
                                 <i class="fa-solid fa-circle-dot text-primary-500 mt-1.5 text-[10px] flex-shrink-0"></i>
-                                <span>Bersedia mengikuti ketentuan pembayaran yang telah ditetapkan sekolah? <span class="text-red-500">*</span></span>
+                                <span>Apakah Bapak/Ibu siap memenuhi pembayaran awal/Daftar Ulang sesuai nominal dan batas waktu yang ditetapkan sekolah? <span class="text-red-500">*</span></span>
                             </p>
-                            <div class="flex gap-2.5 sm:w-1/3">
-                                <label class="flex-1 selectable-card relative cursor-pointer"><input type="radio" name="ketentuan_bayar" value="Ya" class="peer sr-only" required><div class="p-3.5 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[14px]">Ya</div></label>
-                                <label class="flex-1 selectable-card relative cursor-pointer"><input type="radio" name="ketentuan_bayar" value="Tidak" class="peer sr-only"><div class="p-3.5 border-2 border-slate-200 rounded-xl text-center font-bold text-slate-700 text-[14px]">Tidak</div></label>
+                            <div class="grid grid-cols-1 gap-3">
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="ketentuan_bayar" value="Ya, siap membayar sesuai ketentuan" class="peer sr-only" required>
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Ya, siap membayar sesuai ketentuan</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="ketentuan_bayar" value="Siap, dengan skema cicilan yang disediakan sekolah" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Siap, dengan skema cicilan yang disediakan sekolah</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="ketentuan_bayar" value="Membutuhkan tambahan waktu" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Membutuhkan tambahan waktu</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
+                                <label class="selectable-card relative cursor-pointer">
+                                    <input type="radio" name="ketentuan_bayar" value="Belum dapat memastikan" class="peer sr-only">
+                                    <div class="p-3.5 sm:p-4 border-2 border-slate-200 rounded-xl transition-all flex items-center justify-between gap-3">
+                                        <span class="font-bold text-slate-700 text-[13px] sm:text-[14px] leading-snug peer-checked:text-primary-800">Belum dapat memastikan</span>
+                                        <i class="fa-solid fa-circle-check text-primary-600 check-icon text-lg flex-shrink-0"></i>
+                                    </div>
+                                </label>
                             </div>
                         </div>
+
 
                         <!-- Kesiapan Pembayaran SPP -->
                         <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-card border border-slate-100">
@@ -1000,7 +1054,7 @@
                         <div class="absolute top-0 right-0 p-4 opacity-5 text-7xl text-primary-900 pointer-events-none"><i class="fa-solid fa-file-signature"></i></div>
                         <h3 class="font-extrabold text-slate-800 mb-4 text-base sm:text-lg flex items-center gap-2.5">Pernyataan Komitmen Akhir</h3>
                         <div class="bg-primary-50 p-4 sm:p-5 rounded-xl border border-primary-100 mb-5">
-                            <p class="text-[14px] sm:text-[15px] text-primary-900 leading-relaxed font-semibold">Saya telah membaca, memahami, dan bersedia mendukung ketentuan serta program pendidikan SMPIT Mentari Ilmu Karawang apabila anak saya dinyatakan diterima.</p>
+                            <p class="text-[14px] sm:text-[15px] text-primary-900 leading-relaxed font-semibold">Saya menyatakan bahwa informasi yang saya berikan dalam instrumen ini adalah benar sesuai dengan kondisi keluarga saat ini. Saya telah memahami bahwa pendidikan putra/putri kami memerlukan komitmen pembiayaan secara rutin dan berkelanjutan. Apabila putra/putri kami diterima sebagai peserta didik, kami berkomitmen memenuhi kewajiban pembayaran sesuai nominal, mekanisme, dan jadwal yang telah ditetapkan sekolah.</p>
                         </div>
                         
                         <div class="space-y-3 sm:space-y-4">
